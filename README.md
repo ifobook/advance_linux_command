@@ -12,50 +12,50 @@ Permissions can be represented numerically, where each permission is assigned a 
 - Execute (x) = 1
 - No permission (-) = 0
 
-These values are combined to represent the permissions for each class. for example:
+These values are combined to represent the permissions for each class. For example:
 
 ## Permissions Represented by 7
 
-- 4(read) + 2(write) + 1(execute) = 7
+- 4 (read) + 2 (write) + 1 (execute) = 7
 - Symbolic: rwx
 - Meaning: Read, Write, and Execute permissions are granted.
 - Example Context: A script file that the owner needs to read, modify, and execute.
 - 
 ## Permissions Represented by 5
-- 4(read) + 1(execute) = 5
+- 4 (read) + 1 (execute) = 5
 - Symbolic: r-x
 - Meaning: Read and Execute permissions are granted, but Write permission is denied.
 - Example Context: A directory where users can list files and execute programs but cannot modify the contents.
   
 ## Permissions Represented by 6
-- 4(read) + 2(write) = 6
+- 4 (read) + 2 (write) = 6
 - Symbolic: rw-
 - Meaning: Read and Write permissions are granted, but Execute permission is denied.
 - Example Context: A configuration file that needs to be read and modified by the owner but not executed.
   
 ## Permissions Represented by 4
-- 4(read) = 4
+- 4 (read) = 4
 - Symbolic: r--
 - Meaning: Only Read permission is granted.
 - Example Context: A log file that users can read but not modify or execute.    
   
 ## Permissions Represented by 0
-- 0(no permissions) = 0
+- 0 (no permissions) = 0
 - Symbolic: ---
 - Meaning: No permissions are granted.
 - Example Context: A sensitive file that should not be accessible to anyone.
 ## Permissions Represented by 1
-- 1(execute) = 1
+- 1 (execute) = 1
 - Symbolic: --x
 - Meaning: Only Execute permission is granted.
 - Example Context: A binary file that can be executed but not read or modified.     
 ## Permissions Represented by 2
-- 2(write) = 2
+- 2 (write) = 2
 - Symbolic: -w-
 - Meaning: Only Write permission is granted.
 - Example Context: A temporary file that can be modified but not read or executed.  
 ## Permissions Represented by 3
-- 3(write + execute) = 3
+- 3 (write + execute) = 3
 - Symbolic: -wx
 - Meaning: Write and Execute permissions are granted, but Read permission is denied.        
 - Example Context: A script that can be modified and executed but not read by others.   
@@ -78,7 +78,7 @@ Hyphens (-) in the permissions representation indicate the absence of a specific
 
 Let me break it down to explain what each part means:
 
-- In the output above, you notice that some of the first characters can be `-`, or `d`: `d` means that the file is a directory, while `-` means it is a regular file.
+- In the output above, you notice that some of the first characters can be `-` or `d`: `d` means that the file is a directory, while `-` means it is a regular file.
 - The next three characters represent the permissions for the owner of the file. In this case, `rwx` means the owner has read, write, and execute permissions.
 - The next three characters represent the permissions for the group associated with the file. In this case, `r-x` means the group has read and execute permissions, but not write permission.
 - The last three characters represent the permissions for others (everyone else). In this case, `r--` means others have read permission only.
@@ -99,14 +99,14 @@ To manage file permissions and ownership, Linux provides several commands:
 ## chmod command
 The `chmod` command is used to change the permissions of a file or directory. It can be used in two ways: symbolic mode and numeric mode.
 
-For example.
+For example:
 Create an empty file using the `touch` command:
 ```bash
 touch example.txt
 ```
 ![Create an empty file](assets/touch.png)
 
-lets check the permissions of the file using the `ls -l` command:
+Let's check the permissions of the file using the `ls -l` command:
 ```bash
 ls -l script.sh
 ```
@@ -142,12 +142,12 @@ chmod go+x script.sh
 - (4+2+1) = 6 for the group (read, write, and execute)
 - (4+1) = 5 for others (read, execute)
 
-Lets consider another example where owner of a file is currently the only one with full permissions to `note.txt`:
+Let's consider another example where the owner of a file is currently the only one with full permissions to `note.txt`:
 ![Current Permissions](assets/current-permissions.png)
 
-
-To allow group members and others to read, write and execute the file, you can use the following command:
-```bashchmod 777 note.txt
+To allow group members and others to read, write, and execute the file, you can use the following command:
+```bash
+chmod 777 note.txt
 ```
 ![Change Permissions to 777](assets/chmod-777.png)
 
@@ -157,16 +157,16 @@ Now, notice that the permissions have changed to `rwxrwxrwx`, meaning:
 - Others have read, write, and execute permissions.
 
 ## chown command
-The `chown` command is used to change the ownership of a file or directory or symbolic link. It allows you to change the owner and/or group of a file.
+The `chown` command is used to change the ownership of a file, directory, or symbolic link. It allows you to change the owner and/or group of a file.
 Here's the basic format of the `chown` command:
 ```bash
-chown [option] 0wner[:group] file(s)      
+chown [option] owner[:group] file(s)      
 ```
-For example, lets assume there is a user on the server called "john", a group called "developers", and you want the owner of `filename.text` chnaged from "Frank" to "john", and to also ensure that any user in the developers group has ownership of the file as well, you can use the following command:
+For example, let's assume there is a user on the server called "john", a group called "developers", and you want the owner of `filename.txt` changed from "Frank" to "john", and to also ensure that any user in the developers group has ownership of the file as well, you can use the following command:
 ```bash
 chown john:developers filename.txt
 ```
-`ls -latr' command on this file will look like this:
+The `ls -latr` command on this file will look like this:
 ```bash
 ls -latr filename.txt
 ```
@@ -175,9 +175,9 @@ ls -latr filename.txt
 In Linux, it's often necessary to perform administrative tasks that require elevated privileges. The `sudo` command allows a permitted user to execute a command as the superuser or another user, as specified by the security policy.
 To switch to the superuser (root) account, you can use:
 ```bash
-sudo sudo -i    
+sudo -i    
 ```
-you can type `exit` to leave the shell and return to your normal user account.
+You can type `exit` to leave the shell and return to your normal user account.
 
 ![Switch to Superuser](assets/sudo.png)
 To run a command with superuser privileges, you can prefix the command with `sudo`. For example:
@@ -187,20 +187,20 @@ sudo chown john:developers filename.txt
 This command changes the ownership of `filename.txt` to user `john` and group `developers`, using superuser privileges.
 
 # User Management on Linux
-As a DevOps engineer, you are also going to be doing systems aadministration which involves managing different users on the servers. You should know how to create a new user, or group, modify their permissions, update password and such similar tasks.
+As a DevOps engineer, you are also going to be doing systems administration, which involves managing different users on the servers. You should know how to create a new user or group, modify their permissions, update passwords, and perform similar tasks.
 
 # Creating a New User
 To create a new user in Linux, you can use the `useradd` command. The basic syntax is:
 ```
 sudo useradd johndoe
 ```
-running this command will prompt you to enter and confirm a password for the new user. After that, a home directory will be automatically generated for the user, such as `/home/johndoe/`, you can use the `passwd` command to set or change the password for the user.
+Running this command will prompt you to enter and confirm a password for the new user. After that, a home directory will be automatically generated for the user, such as `/home/johndoe/`. You can use the `passwd` command to set or change the password for the user.
 
 ![Create a New User](assets/adduser.png)
 
 ## Granting Administrative Privileges
 
-By default, the new user will not have administrative privileges. To grant administrative privileges, you can add the user to the `sudo` group. This allows the user to execute commands with superuser privileges using `sudo`. Users in the `sudo` group can run commands as the superuser or another user, as specified by the security policy. To the **johndoe** user to the `sudo` group, you can use the following command:
+By default, the new user will not have administrative privileges. To grant administrative privileges, you can add the user to the `sudo` group. This allows the user to execute commands with superuser privileges using `sudo`. Users in the `sudo` group can run commands as the superuser or another user, as specified by the security policy. To add the **johndoe** user to the `sudo` group, you can use the following command:
 ```
 sudo usermod -aG sudo johndoe
 ```
@@ -212,7 +212,7 @@ sudo usermod -aG sudo johndoe
 In the given command, `-aG sudo` is used to add the user `johndoe` to the `sudo` group, allowing them to execute commands with superuser privileges.
 
 ## Task 
-- log out and log back in as the new user `johndoe`.
+- Log out and log back in as the new user `johndoe`.
 - Navigate to the `/home/johndoe/` directory to explore what has been created for the user.
 
 ## Switching User Accounts
@@ -225,7 +225,7 @@ You will be prompted to enter the password for the `johndoe` user. After enterin
 ![Switch User](assets/su-johndoe.png)
 
 ## Modifying User Accounts
-** Changing User password**
+**Changing User Password**
 To change the password for a user, you can use the `passwd` command followed by the username. For example, to change the password for the `johndoe` user, you can use:
 ```bash
 sudo passwd johndoe
@@ -235,7 +235,7 @@ sudo passwd johndoe
 You will be prompted to enter the new password for the user. After entering the new password, you will need to confirm it by entering it again.
 
 ## Task 
-- Text the updated password by logging on to the server, using the newly updated password.
+- Test the updated password by logging on to the server, using the newly updated password.
 
 # Creating a Group
 To create a new group in Linux, you can use the `groupadd` command. The basic syntax is:
@@ -254,7 +254,7 @@ sudo usermod -aG developers johndoe
 The `-aG` option appends the user to the specified group without removing them from other groups. In this case, it adds the user `johndoe` to the `developers` group.
 
 ## Verifying Group Memberships
-To comfirm the group memberships for a specific user, use the `id` command. For example, to check the group memberships for the `johndoe` user, you can use:
+To confirm the group memberships for a specific user, use the `id` command. For example, to check the group memberships for the `johndoe` user, you can use:
 ```bash
 id johndoe
 ```
